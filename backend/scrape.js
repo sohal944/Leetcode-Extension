@@ -51,3 +51,5 @@ async function scrapeLeetcodeProblem(url) {
 // Replace with your desired LeetCode problem URL
 const url = "https://leetcode.com/problems/length-of-last-word/description/";
 scrapeLeetcodeProblem(url);
+
+module.exports = { scrapeLeetcodeProblem };
