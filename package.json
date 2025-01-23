@@ -1,0 +1,16 @@
+{
+  "name": "leetcode-scraper",
+  "version": "1.0.0",
+  "description": "An app to fetch LeetCode problems and run solutions",
+  "main": "backend/main.js", 
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^latest-version",
+    "puppeteer": "^latest-version"
+  },
+  "devDependencies": {
+    "electron-builder": "^latest-version"
+  }
+}

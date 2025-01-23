@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Problem Fetcher</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="button"] {
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LeetCode Problem Fetcher</h1>
+
+        <!-- Error Message -->
+        <div id="errorMessage" style="margin-top: 10px; font-size: 14px; color: red;"></div> <!-- Display error here -->
+
+        <!-- URL Input -->
+        <label for="url">Problem URL:</label>
+        <input type="text" id="url" placeholder="Enter LeetCode problem URL">
+
+        <br><br>
+        
+        <!-- Fetch Test Case Button -->
+        <input type="button" value="Fetch Test Cases" id="fetchBtn">
+
+        <br><br>
+
+        <!-- Problem Statement Display -->
+        <div>
+            <h3>Problem Statement</h3>
+            <div id="problemStatement"></div>
+        </div>
+
+        <br><br>
+
+        <!-- Display Test Cases -->
+        <div>
+            <h3>Test Cases</h3>
+            <pre id="testCases"></pre>
+        </div>
+
+        <br><br>
+
+        <!-- Solution Code Input -->
+        <h3>Solution Python Code</h3>
+        <textarea id="solutionPyCode"></textarea>
+
+        <br><br>
+
+        <h3>Solution C++ Code</h3>
+        <textarea id="solutionCppCode"></textarea>
+
+        <br><br>
+
+        <!-- Run Solution Button -->
+        <input type="button" value="Run Solution" id="runSolutionBtn">
+
+        <br><br>
+           
+        <!-- Output Display -->
+        <div>
+            <h3>Output</h3>
+            <pre id="output"></pre>
+        </div>
+    </div>
+
+    <!-- Include the renderer.js script -->
+    <script src="renderer.js"></script>
+
+</body>
+</html>
