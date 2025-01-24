@@ -1,14 +1,11 @@
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const puppeteer = require('puppeteer');
-const fs = require('fs');
-const { exec } = require('child_process');
-const { scrapeLeetcodeProblem } = require('./scrape');
-
+const { scrapeLeetcodeProblem } = require('./scrape');  // Importing scrape function
+const { runPythonCode, runCppCode } = require('./codeExecution');  // Importing helper functions for code execution
 
 let mainWindow;
 
 function createWindow() {
-    
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -17,7 +14,6 @@ function createWindow() {
             contextIsolation: false, // Ensure context isolation is off for debugging
             devTools: true // Enable DevTools
         }
-        
     });
 
     mainWindow.loadFile("frontend/index.html");
@@ -50,26 +46,28 @@ app.on('will-quit', () => {
     globalShortcut.unregisterAll();
 });
 
-// Your other IPC handlers and functions go here
+// Fetch LeetCode problem data
 ipcMain.on('fetchProblemData', async (event, url) => {
     try {
         console.log('Fetching problem data for URL:', url);
         const problemData = await scrapeLeetcodeProblem(url);
+
+        // Send the data back to the frontend
         mainWindow.webContents.send('problemData', problemData);
     } catch (error) {
         console.error("Error fetching problem data:", error);
     }
 });
 
+
+// Run Python and C++ solution codes
 ipcMain.on('runSolution', async (event, { pythonCode, cppCode }) => {
     try {
         console.log('Running solution for Python and C++');
-        const pythonResult = await runPythonCode(pythonCode);
-        const cppResult = await runCppCode(cppCode);
-        mainWindow.webContents.send('solutionOutput', `Python Output: ${pythonResult}\nC++ Output: ${cppResult}`);
+        const pythonResult = await runPythonCode(pythonCode); // Run the Python code
+        const cppResult = await runCppCode(cppCode); // Run the C++ code
+        mainWindow.webContents.send('solutionOutput', `Python Output: ${pythonResult}\nC++ Output: ${cppResult}`); // Send output back to the renderer
     } catch (error) {
         console.error("Error running solution:", error);
     }
 });
-
-// Other helper functions (scrapeLeetcodeProblem, runPythonCode, runCppCode) remain unchanged

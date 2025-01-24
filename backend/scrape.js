@@ -7,17 +7,17 @@ async function scrapeLeetcodeProblem(url) {
 
     try {
         console.log(`Navigating to ${url}`);
-        await page.goto(url);
+        await page.goto(url, { waitUntil: 'load', timeout: 60000 }); // Ensure the page fully loads
 
         // Wait for the problem title element
-        await page.waitForSelector('.text-title-large.font-semibold.text-text-primary');
+        await page.waitForSelector('.text-title-large.font-semibold.text-text-primary', { timeout: 60000 });
 
         // Scrape the problem title
         const title = await page.$eval('.text-title-large.font-semibold.text-text-primary', element => element.innerText);
         console.log(`Title: ${title}`);
 
         // Wait for the test case elements
-        await page.waitForSelector('pre');
+        await page.waitForSelector('pre', { timeout: 60000 });
         const testCases = await page.$$eval('pre', elements =>
             elements.map(element => {
                 const text = element.innerText.trim();
@@ -40,6 +40,10 @@ async function scrapeLeetcodeProblem(url) {
         const outputPath = './problem_data.json';
         fs.writeFileSync(outputPath, JSON.stringify(data, null, 2), 'utf-8');
         console.log(`Data saved to ${outputPath}`);
+
+        // Debugging: Take a screenshot of the page for inspection
+        await page.screenshot({ path: 'screenshot.png' });
+
     } catch (error) {
         console.error("Error scraping problem:", error.message);
     } finally {

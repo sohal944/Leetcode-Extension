@@ -9,19 +9,64 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            background-color: #f4f4f4;
         }
         .container {
             width: 80%;
             margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        textarea {
+        textarea, input[type="text"], input[type="button"] {
             width: 100%;
-            height: 200px;
-            margin-bottom: 20px;
-        }
-        input[type="text"], input[type="button"] {
             padding: 10px;
             margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        textarea {
+            height: 200px;
+        }
+        h3 {
+            margin-bottom: 10px;
+        }
+        #testCases {
+            white-space: pre-wrap;
+        }
+        #output {
+            white-space: pre-wrap;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+        /* Loading Spinner Styling */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Button Styling */
+        input[type="button"] {
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+        input[type="button"]:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
@@ -30,7 +75,7 @@
         <h1>LeetCode Problem Fetcher</h1>
 
         <!-- Error Message -->
-        <div id="errorMessage" style="margin-top: 10px; font-size: 14px; color: red;"></div> <!-- Display error here -->
+        <div id="errorMessage" style="margin-top: 10px; font-size: 14px; color: red;"></div>
 
         <!-- URL Input -->
         <label for="url">Problem URL:</label>
@@ -40,6 +85,9 @@
         
         <!-- Fetch Test Case Button -->
         <input type="button" value="Fetch Test Cases" id="fetchBtn">
+
+        <!-- Loading Spinner -->
+        <div id="loader" class="loader" style="display: none;"></div>
 
         <br><br>
 
@@ -74,12 +122,15 @@
         <input type="button" value="Run Solution" id="runSolutionBtn">
 
         <br><br>
-           
+
         <!-- Output Display -->
         <div>
             <h3>Output</h3>
             <pre id="output"></pre>
         </div>
+
+        <!-- Clear All Button -->
+        <input type="button" value="Clear All" id="clearAllBtn">
     </div>
 
     <!-- Include the renderer.js script -->
